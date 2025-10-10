@@ -11,7 +11,6 @@ import lombok.*;
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
 public class Customer extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
