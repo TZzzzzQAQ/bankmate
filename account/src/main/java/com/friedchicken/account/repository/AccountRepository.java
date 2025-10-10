@@ -1,0 +1,9 @@
+package com.friedchicken.account.repository;
+
+import com.friedchicken.account.entity.Account;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AccountRepository extends JpaRepository<Account,Long> {
+}
