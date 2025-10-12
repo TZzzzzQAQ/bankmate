@@ -1,6 +1,8 @@
 package com.friedchicken.account.mapper;
 
+import com.friedchicken.account.dto.CustomerAccountDto;
 import com.friedchicken.account.dto.CustomerDto;
+import com.friedchicken.account.entity.Account;
 import com.friedchicken.account.entity.Customer;
 
 public class CustomerMapper {
