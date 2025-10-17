@@ -2,8 +2,6 @@ package com.friedchicken.account.dto;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class CustomerAccountDto  {
     private String name;

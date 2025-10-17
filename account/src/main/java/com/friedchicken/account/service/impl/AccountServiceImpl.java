@@ -1,5 +1,6 @@
 package com.friedchicken.account.service.impl;
 
+import com.friedchicken.account.dto.AccountDto;
 import com.friedchicken.account.dto.CustomerAccountDto;
 import com.friedchicken.account.dto.CustomerDto;
 import com.friedchicken.account.entity.Account;
@@ -25,7 +26,7 @@ public class AccountServiceImpl implements IAccountService {
     private AccountRepository accountRepository;
     private CustomerRepository customerRepository;
     private AccountFactory accountFactory;
-    private CustomerAccountMapper  customerAccountMapper;
+    private CustomerAccountMapper customerAccountMapper;
 
     /**
      * @param customerDto - Customer Data Transfer Object
@@ -54,5 +55,35 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public CustomerAccountDto fetchAccountByMobileNumber(String mobileNumber) {
         return customerAccountMapper.findByMobile(mobileNumber);
+    }
+
+    /**
+     * @param customerAccountDto - Customer and Account information
+     * @author TZzzQAQ
+     * @date 13/10/2025
+     **/
+    @Override
+    public void updateAccount(CustomerAccountDto customerAccountDto) {
+        AccountDto accountDto = new AccountDto(customerAccountDto.getAccountNumber(), customerAccountDto.getAccountType(), customerAccountDto.getBranchAddress());
+        Account account = accountRepository.findById(accountDto.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("Account", "Account Number", accountDto.getAccountNumber().toString()));
+        AccountMapper.mapToAccount(accountDto, account);
+        accountRepository.save(account);
+
+        CustomerDto customerDto = new CustomerDto(customerAccountDto.getName(), customerAccountDto.getEmail(), customerAccountDto.getMobileNumber());
+        Customer customer = customerRepository.findById(account.getCustomerId()).orElseThrow(() -> new ResourceNotFoundException("Customer", "Customer Id", account.getCustomerId().toString()));
+        CustomerMapper.mapToCustomer(customerDto, customer);
+        customerRepository.save(customer);
+    }
+
+    /**
+     * @param mobileNumber -
+     * @author TZzzQAQ
+     * @date 17/10/2025
+     **/
+    @Override
+    public void deleteAccount(String mobileNumber) {
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(() -> new ResourceNotFoundException("Customer", "Mobile Number", mobileNumber));
+        customerRepository.deleteById(customer.getCustomerId());
+        accountRepository.deleteById(customer.getCustomerId());
     }
 }

@@ -20,4 +20,18 @@ public interface IAccountService {
      * @date 12/10/2025
      **/
     CustomerAccountDto fetchAccountByMobileNumber(String mobileNumber);
+
+    /**
+     * @param customerAccountDto - Customer and Account information
+     * @author TZzzQAQ
+     * @date 13/10/2025
+     **/
+    void updateAccount(CustomerAccountDto customerAccountDto);
+
+    /**
+     * @param mobileNumber - Mobile Number of the customer 
+     * @author TZzzQAQ
+     * @date 17/10/2025
+     **/
+    void deleteAccount(String mobileNumber);
 }
