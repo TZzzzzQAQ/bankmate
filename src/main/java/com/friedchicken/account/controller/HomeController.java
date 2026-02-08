@@ -1,9 +1,14 @@
 package com.friedchicken.account.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(
+        name = "Home page",
+        description = "Welcome page for getting the quick entrance"
+)
 @RestController
 public class HomeController {
 
